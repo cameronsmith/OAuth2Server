@@ -1,0 +1,29 @@
+{
+  "name": "ukcasmith/oauth2",
+  "description": "An oauth2 example",
+  "keywords" : ["oauth2", "ukcasmith"],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Cameron Smith"
+    }
+  ],
+  "require": {
+    "php": ">=7.0.0"
+  },
+  "support": {
+    "source": "https://github.com/uk-casmith/oauth2"
+  },
+  "autoload": {
+    "psr-4": {
+      "UKCASmith\\Shipping\\": "app/"
+    },
+    "classmap": [
+      "tests/"
+    ]
+  },
+  "version": "0.0.1",
+  "require-dev": {
+    "phpunit/phpunit": "^6.4"
+  }
+}
