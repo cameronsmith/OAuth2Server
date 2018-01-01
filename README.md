@@ -15,3 +15,11 @@ openssl genrsa -out ./storage/private.key 2048
 ```
 openssl rsa -in ./storage/private.key -pubout -out ./storage/public.key
 ```
+
+## Starting the server
+
+For this simple example we'll use PHP's built in server:
+
+```
+php -S localhost:8080 ./public/index.php
+```
