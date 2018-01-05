@@ -1,6 +1,7 @@
-# oauth2
-OAuth2 Server using the league/oauth2 package. This repo is just to learn the OAuth2 package with it's example files. It
-is not intended for production use. 
+# OAuth2 Server
+OAuth2 Server using the league/oauth2 package. This repo is just to learn the OAuth2 package with it's example files. 
+
+**It is not intended for production use.**
 
 ## Generate private + public keys
 
@@ -16,6 +17,10 @@ openssl genrsa -out ./storage/private.key 2048
 ```
 openssl rsa -in ./storage/private.key -pubout -out ./storage/public.key
 ```
+
+## Create .env file
+
+Copy the `.env.example` file to `.env` and update the keys with your values.
 
 ## Starting the server
 
