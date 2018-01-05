@@ -1,7 +1,7 @@
 # OAuth2 Server
 OAuth2 Server using the league/oauth2 package. This repo is just to learn the OAuth2 package with it's example files. 
 
-**It is not intended for production use.**
+**This package is not intended for production use.**
 
 ## Generate private + public keys
 
