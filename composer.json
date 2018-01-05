@@ -11,14 +11,16 @@
   "require": {
     "php": ">=7.0.0",
     "league/oauth2-server": "^6.1",
-    "nikic/fast-route": "^1.2"
+    "nikic/fast-route": "^1.2",
+    "vlucas/phpdotenv": "^2.4",
+    "slim/http": "^0.3.0"
   },
   "support": {
     "source": "https://github.com/uk-casmith/oauth2"
   },
   "autoload": {
     "psr-4": {
-      "UKCASmith\\Shipping\\": "app/"
+      "App\\": "app/"
     },
     "classmap": [
       "tests/"

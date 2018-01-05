@@ -11,8 +11,8 @@ class ClientRepository implements ClientRepositoryInterface
     public function getClientEntity($clientIdentifier, $grantType, $clientSecret = null, $mustValidateSecret = true)
     {
         $clients = [
-            'myawesomeapp' => [
-                'secret' => password_hash('abc123', PASSWORD_BCRYPT),
+            'my-app' => [
+                'secret' => password_hash(getenv('SECRET_KEY'), PASSWORD_BCRYPT),
                 'name' => 'My Awesome App',
                 'redirect_uri' => 'http://foo/bar',
                 'is_confidential' => true,

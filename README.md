@@ -1,7 +1,8 @@
 # oauth2
-oauth2 using the league/oauth2 package.
+OAuth2 Server using the league/oauth2 package. This repo is just to learn the OAuth2 package with it's example files. It
+is not intended for production use. 
 
-## Generate private & public keys
+## Generate private + public keys
 
 The oauth2 package requires a public and private key. You must run the following commands to 
 generate those keys:
