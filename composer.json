@@ -13,7 +13,8 @@
     "league/oauth2-server": "^6.1",
     "nikic/fast-route": "^1.2",
     "vlucas/phpdotenv": "^2.4",
-    "slim/http": "^0.3.0"
+    "slim/http": "^0.3.0",
+    "symfony/console": "^3.4"
   },
   "support": {
     "source": "https://github.com/uk-casmith/oauth2"
