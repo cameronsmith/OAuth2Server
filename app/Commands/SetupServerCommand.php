@@ -7,6 +7,8 @@ use Symfony\Component\Console\Input\InputArgument;
 use App\Helpers\Path;
 use Dotenv\Dotenv;
 use Exception;
+use Phinx\Console\PhinxApplication;
+use Phinx\Wrapper\TextWrapper;
 
 class SetupServerCommand extends Command
 {
@@ -67,6 +69,14 @@ class SetupServerCommand extends Command
         $this->generateEncryptionKey(base64_encode(random_bytes(32)));
         $output->writeln('<info>OK</info>');
 
+        $output->write('Create database: ');
+        $this->createDatabase();
+        $output->writeln('<info>OK</info>');
+
+        $output->write('Run migrations: ');
+        $this->runMigrations();
+        $output->writeln('<info>OK</info>');
+
         return true;
     }
 
@@ -105,6 +115,7 @@ class SetupServerCommand extends Command
         $storagePath = Path::getStoragePath();
         $privateKey = $storagePath . '/private.key';
         $publicKey = $storagePath . '/public.key';
+        $databaseFile = $storagePath . '/database.sqlite';
 
         if (file_exists($privateKey)) {
             unlink($privateKey);
@@ -112,6 +123,10 @@ class SetupServerCommand extends Command
 
         if (file_exists($publicKey)) {
             unlink($publicKey);
+        }
+
+        if (file_exists($databaseFile)) {
+            unlink($databaseFile);
         }
     }
 
@@ -160,5 +175,28 @@ class SetupServerCommand extends Command
         file_put_contents($envFile, str_replace(
             'ENCRYPTION_KEY=' . getenv('ENCRYPTION_KEY'), 'ENCRYPTION_KEY=' . $newKey, file_get_contents($envFile)
         ));
+    }
+
+    /**
+     * Create database.
+     */
+    protected function createDatabase()
+    {
+        touch(Path::getStoragePath() . '/database.sqlite');
+    }
+
+    /**
+     * Run migrations.
+     */
+    protected function runMigrations()
+    {
+        $phinxApp = new PhinxApplication;
+        $phinxTextWrapper = new TextWrapper($phinxApp);
+
+        $phinxTextWrapper->setOption('configuration', Path::getAppPath() . '/phinx.yml');
+        $phinxTextWrapper->setOption('parser', 'YAML');
+        $phinxTextWrapper->setOption('environment', 'development');
+
+        $log = $phinxTextWrapper->getMigrate();
     }
 }
