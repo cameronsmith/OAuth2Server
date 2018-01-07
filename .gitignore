@@ -1,4 +1,5 @@
 /storage/*.key
+/storage/*.sqlite
 /vendor
 .idea
 .env
