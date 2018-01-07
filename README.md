@@ -3,29 +3,13 @@ OAuth2 Server using the league/oauth2 package. This repo is just to learn the OA
 
 **This package is not intended for production use.**
 
-## Generate private + public keys
+## Setup Instructions
 
-The oauth2 package requires a public and private key. You must run the following commands to 
-generate those keys:
+- Copy the `.env.example` file to `.env` and update the keys you know with your values. 
+Some keys like the `ENCRYPTION_KEY` will be setup by the `app:setup` command later on.
 
-**Private Key**
-```
-openssl genrsa -out ./storage/private.key 2048
-```
-
-**Public Key**
-```
-openssl rsa -in ./storage/private.key -pubout -out ./storage/public.key
-```
-
-## Create .env file
-
-Copy the `.env.example` file to `.env` and update the keys with your values.
+- Run `php ./console.php app:setup` to setup the server.
 
 ## Starting the server
 
-For this simple example we'll use PHP's built in server:
-
-```
-php -S localhost:8080 ./public/index.php
-```
+- Run `php ./console.php app:serve` to start the server on port 8080.
