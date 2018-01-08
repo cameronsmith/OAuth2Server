@@ -15,10 +15,11 @@ class ApiController
 
     /**
      * ApiController constructor.
+     * @param Request $request
      */
-    public function __construct()
+    public function __construct(Request $request)
     {
-        $this->request = Request::createFromGlobals($GLOBALS["_SERVER"]);
+        $this->request = $request;
         $this->response = new Response;
 
         $this->authorizationServer = new AuthorizationServer(
