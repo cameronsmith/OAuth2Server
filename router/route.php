@@ -1,9 +1,7 @@
 <?php
 
 $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) {
-    $r->addRoute('POST', '/password', function () {
-        return (new \App\Controllers\PasswordController)->authorize();
-    });
+    $r->addRoute('POST', '/password', ['App\Controllers\PasswordController', 'authorize']);
 });
 
 $httpMethod = $_SERVER['REQUEST_METHOD'];
@@ -13,8 +11,11 @@ $routeInfo = $dispatcher->dispatch($httpMethod, $uri);
 
 switch ($routeInfo[0]) {
     case FastRoute\Dispatcher::FOUND:
-        $handler = $routeInfo[1];
-        echo $handler();
+        $class = $routeInfo[1][0];
+        $method = $routeInfo[1][1];
+
+        $controller = $injector->make($class);
+        echo $controller->$method();
         break;
     default:
         http_response_code(404);
