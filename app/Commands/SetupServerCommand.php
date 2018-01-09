@@ -197,6 +197,6 @@ class SetupServerCommand extends Command
         $phinxTextWrapper->setOption('parser', 'YAML');
         $phinxTextWrapper->setOption('environment', 'development');
 
-        $log = $phinxTextWrapper->getMigrate();
+        $phinxTextWrapper->getMigrate();
     }
 }
