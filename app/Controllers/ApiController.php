@@ -6,20 +6,25 @@ use App\Repositories\AccessTokenRepository;
 use App\Repositories\ScopeRepository;
 use Slim\Http\Response;
 use Slim\Http\Request;
+use App\Repositories\RepositoryConnection;
 
 class ApiController
 {
     protected $authorizationServer;
     protected $request;
     protected $response;
+    protected $repoConnection;
 
     /**
      * ApiController constructor.
+     *
      * @param Request $request
+     * @param RepositoryConnection $repoConnection
      */
-    public function __construct(Request $request)
+    public function __construct(Request $request, RepositoryConnection $repoConnection)
     {
         $this->request = $request;
+        $this->repoConnection = $repoConnection;
         $this->response = new Response;
 
         $this->authorizationServer = new AuthorizationServer(
