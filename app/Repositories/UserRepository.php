@@ -6,8 +6,26 @@ use App\Entities\UserEntity;
 
 class UserRepository implements UserRepositoryInterface
 {
+    protected $repoConnection;
+
     /**
-     * {@inheritdoc}
+     * UserRepository constructor.
+     *
+     * @param RepositoryConnection $repoConnection
+     */
+    public function __construct(RepositoryConnection $repoConnection)
+    {
+        $this->repoConnection = $repoConnection;
+    }
+
+    /**
+     * Get a user from their credentials.
+     *
+     * @param string $username
+     * @param string $password
+     * @param string $grantType
+     * @param ClientEntityInterface $clientEntity
+     * @return UserEntity|bool
      */
     public function getUserEntityByUserCredentials(
         $username,
@@ -15,10 +33,22 @@ class UserRepository implements UserRepositoryInterface
         $grantType,
         ClientEntityInterface $clientEntity
     ) {
-        if ($username === getenv('USERNAME') && $password === getenv('PASSWORD')) {
-            return new UserEntity();
+        $sql = 'SELECT username, password FROM users WHERE username=:username';
+        $stmt = $this->repoConnection->prepare($sql);
+        $stmt->execute([
+            'username' => $username,
+        ]);
+
+        $user = $stmt->fetch();
+        if (!$user) {
+            return false;
         }
-        return;
+
+        if (!password_verify($password, $user['password'])) {
+            return false;
+        }
+
+        return new UserEntity();
     }
 
 }

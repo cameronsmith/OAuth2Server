@@ -2,41 +2,50 @@
 
 use League\OAuth2\Server\Repositories\ClientRepositoryInterface;
 use App\Entities\ClientEntity;
+use App\Repositories\RepositoryConnection;
 
 class ClientRepository implements ClientRepositoryInterface
 {
+    protected $repoConnection;
+
+    /**
+     * ClientRepository constructor.
+     *
+     * @param \App\Repositories\RepositoryConnection $repoConnection
+     */
+    public function __construct(RepositoryConnection $repoConnection)
+    {
+        $this->repoConnection = $repoConnection;
+    }
+
     /**
      * {@inheritdoc}
      */
     public function getClientEntity($clientIdentifier, $grantType, $clientSecret = null, $mustValidateSecret = true)
     {
-        $clients = [
-            'my-app' => [
-                'secret' => password_hash(getenv('SECRET_KEY'), PASSWORD_BCRYPT),
-                'name' => 'My Awesome App',
-                'redirect_uri' => 'http://foo/bar',
-                'is_confidential' => true,
-            ],
-        ];
+        $stmt = $this->repoConnection->prepare('SELECT * FROM clients WHERE id = :id');
+        $stmt->execute([
+            'id' => $clientIdentifier
+        ]);
 
-        // Check if client is registered
-        if (array_key_exists($clientIdentifier, $clients) === false) {
-            return;
+        $client = $stmt->fetch();
+
+        if (!$client) {
+            return false;
         }
 
-        if (
-            $mustValidateSecret === true
-            && $clients[$clientIdentifier]['is_confidential'] === true
-            && password_verify($clientSecret, $clients[$clientIdentifier]['secret']) === false
-        ) {
-            return;
+        if ($mustValidateSecret
+            && $client['is_confidential']
+            && password_verify($clientSecret, $client['secret']) === false) {
+
+            return false;
         }
 
-        $client = new ClientEntity();
-        $client->setIdentifier($clientIdentifier);
-        $client->setName($clients[$clientIdentifier]['name']);
-        $client->setRedirectUri($clients[$clientIdentifier]['redirect_uri']);
+        $clientEntity = new ClientEntity();
+        $clientEntity->setIdentifier($clientIdentifier);
+        $clientEntity->setName($client['name']);
+        $clientEntity->setRedirectUri($client['redirect_uri']);
 
-        return $client;
+        return $clientEntity;
     }
 }
