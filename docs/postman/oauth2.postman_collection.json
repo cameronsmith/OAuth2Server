@@ -1,0 +1,31 @@
+{
+	"variables": [],
+	"info": {
+		"name": "OAuth2 Server",
+		"_postman_id": "b8b7faa9-a0a5-fcbe-9a34-61a0d78e9fdf",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:8080/password",
+			"request": {
+				"url": "localhost:8080/password",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"grant_type\": \"password\",\n\t\"client_id\": 2,\n\t\"client_secret\": \"secret1!\",\n\t\"username\": \"user1\",\n\t\"password\": \"Password1!\"\n}"
+				},
+				"description": "Password Grant"
+			},
+			"response": []
+		}
+	]
+}
