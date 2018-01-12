@@ -8,6 +8,7 @@ use Slim\Http\Response;
 use Slim\Http\Request;
 use App\Repositories\RepositoryConnection;
 use App\Helpers\HttpCodes;
+use App\Helpers\Path;
 
 class ApiController
 {
@@ -39,7 +40,7 @@ class ApiController
             new ClientRepository($this->repoConnection),
             new AccessTokenRepository(),
             new ScopeRepository(),
-            'file://' . __DIR__ . '/../../storage/private.key',
+            'file://' . Path::getStoragePath() . '/private.key',
             getenv('ENCRYPTION_KEY')
         );
 
