@@ -5,8 +5,10 @@
  */
 require_once __DIR__ . '/../vendor/autoload.php';
 
-require_once __DIR__ . '/../bootstrap/app.php';
+$app = require_once __DIR__ . '/../bootstrap/app.php';
 
-require_once __DIR__ . '/../router/route.php';
+$routes = require_once __DIR__ . '/../router/route.php';
+
+echo $app->run($routes);
 
 exit();
