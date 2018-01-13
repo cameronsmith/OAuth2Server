@@ -1,10 +1,12 @@
 <?php namespace App;
 
 use FastRoute\Dispatcher;
+use App\Providers;
 
 class Application
 {
     protected $injector;
+    protected $routes;
 
     /**
      * Application constructor.
@@ -14,16 +16,24 @@ class Application
     public function __construct($injector)
     {
         $this->injector = $injector;
+        $this->registerProviders(Providers::APP);
+    }
+
+    /**
+     * addRoutes to application.
+     *
+     * @param $routes
+     */
+    public function addRoutes($routes) {
+        $this->routes = $routes;
     }
 
     /**
      * Run through application routes.
-     *
-     * @param $routes
      */
-    public function run($routes) {
-        $request = $this->injector->make('Slim\Http\Request');
-        $routeInfo = $routes->dispatch($request->getMethod(), $request->gerUri());
+    public function run() {
+        $request = $this->injector->make('Psr\Http\Message\ServerRequestInterface');
+        $routeInfo = $this->routes->dispatch($request->getMethod(), $request->getUri()->getPath());
 
         switch ($routeInfo[0]) {
             case Dispatcher::FOUND:
@@ -41,6 +51,16 @@ class Application
     }
 
     /**
+     * Register an interface with a class.
+     *
+     * @param $interface
+     * @param $class
+     */
+    public function addInterfaceAlias($interface, $class) {
+        $this->injector->alias($interface, $class);
+    }
+
+    /**
      * Bind a singleton or overwrite singleton.
      *
      * @param $instance
@@ -48,4 +68,16 @@ class Application
     public function bindSingleton($instance) {
         $this->injector->share($instance);
     }
+
+    /**
+     * Register application providers with the injector.
+     *
+     * @param array $providers
+     */
+    protected function registerProviders(array $providers) {
+        foreach($providers as $interface => $class) {
+            $this->addInterfaceAlias($interface, $class);
+        }
+    }
+
 }
