@@ -4,8 +4,8 @@ use League\OAuth2\Server\AuthorizationServer;
 use App\Repositories\ClientRepository;
 use App\Repositories\AccessTokenRepository;
 use App\Repositories\ScopeRepository;
-use Slim\Http\Response;
-use Slim\Http\Request;
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface  as Request;
 use App\Repositories\RepositoryConnection;
 use App\Helpers\HttpCodes;
 use App\Helpers\Path;
@@ -20,13 +20,14 @@ class ApiController
      * ApiController constructor.
      *
      * @param Request $request
+     * @param Response $response
      * @param RepositoryConnection $repoConnection
      */
-    public function __construct(Request $request, RepositoryConnection $repoConnection)
+    public function __construct(Request $request, Response $response, RepositoryConnection $repoConnection)
     {
         $this->request = $request;
         $this->repoConnection = $repoConnection;
-        $this->response = new Response;
+        $this->response = $response;
     }
 
     /**
