@@ -4,6 +4,8 @@ use PHPUnit\Framework\TestCase;
 use Tests\CreateApplication;
 use Slim\Http\Request;
 use Tests\Stubs\PhpStream;
+use App\Repositories\RepositoryConnection;
+use App\Helpers\Path;
 
 abstract class BaseTest extends TestCase
 {
@@ -12,6 +14,7 @@ abstract class BaseTest extends TestCase
     const POST = 'POST';
 
     protected $app;
+    protected $repoConnection;
 
     /**
      * Setup test application.
@@ -21,6 +24,7 @@ abstract class BaseTest extends TestCase
 
         $this->runMigrations();
         $this->app = $this->getAppInstance();
+        $this->repoConnection = $this->makeRepoConnection();
     }
 
     /**
@@ -82,5 +86,27 @@ abstract class BaseTest extends TestCase
      */
     protected function unmockPhpStream() {
         stream_wrapper_restore("php");
+    }
+
+    /**
+     * Make a repo connection.
+     *
+     * @return RepositoryConnection
+     */
+    protected function makeRepoConnection() {
+        return RepositoryConnection::getConnectionInstance([
+            'file' => Path::getStoragePath() . DIRECTORY_SEPARATOR . getenv('DB_FILE')
+        ]);
+    }
+
+    /**
+     * From a factory persist.
+     *
+     * @param $factory
+     * @param array $data
+     * @return mixed
+     */
+    protected function factory($factory, array $data = []) {
+        return $factory::create($data)->persist($this->repoConnection);
     }
 }
