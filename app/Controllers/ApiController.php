@@ -50,8 +50,14 @@ class ApiController
 
     /**
      * Send JSON headers.
+     *
+     * @return bool
      */
     protected function sendJsonHeader() {
+        if (headers_sent()) {
+            return false;
+        }
+
         header('pragma: no-cache');
         header('cache-control: no-store');
         header('content-type: application/json; charset=UTF-8');
@@ -65,7 +71,7 @@ class ApiController
      * @return \Psr\Http\Message\StreamInterface
      */
     protected function respondOk(Response $response, $httpCode = HttpCodes::HTTP_OK) {
-        http_response_code($httpCode);
+        $this->sendHttpResponseCode($httpCode);
         $this->sendJsonHeader();
         return $response->getBody();
     }
@@ -77,7 +83,7 @@ class ApiController
      * @return string
      */
     protected function respondUnauthorized($httpCode = HttpCodes::HTTP_UNAUTHORIZED) {
-        http_response_code($httpCode);
+        $this->sendHttpResponseCode($httpCode);
         $this->sendJsonHeader();
         return json_encode([
             'error' => 'Unauthorized',
@@ -92,11 +98,25 @@ class ApiController
      * @return string
      */
     protected function respondInternalError($httpCode = HttpCodes::HTTP_INTERNAL_SERVER_ERROR) {
-        http_response_code($httpCode);
+        $this->sendHttpResponseCode($httpCode);
         $this->sendJsonHeader();
         return json_encode([
             'error' => 'Internal error',
             'http_code' => $httpCode,
         ]);
+    }
+
+    /**
+     * Send http response code
+     *
+     * @param $httpCode
+     * @return bool|int
+     */
+    protected function sendHttpResponseCode($httpCode) {
+        if (headers_sent()) {
+            return false;
+        }
+
+        return http_response_code($httpCode);
     }
 }
