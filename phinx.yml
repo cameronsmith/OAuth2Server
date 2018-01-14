@@ -15,6 +15,6 @@ environments:
 
     testing:
         adapter: sqlite
-        name: './storage/database.sqlite'
+        name: './storage/testing.sqlite'
 
 version_order: creation

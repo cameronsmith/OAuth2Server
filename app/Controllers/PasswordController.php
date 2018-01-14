@@ -33,18 +33,12 @@ class PasswordController extends ApiController
         );
 
         try {
-            $response = $authorizationServer->respondToAccessTokenRequest(
+            return $this->respondOk($authorizationServer->respondToAccessTokenRequest(
                 $this->request,
                 $this->response
-            );
+            ));
         } catch (OAuthServerException $exception) {
-            if ($exception->getHttpStatusCode() == HttpCodes::HTTP_UNAUTHORIZED) {
-                return $this->respondUnauthorized();
-            }
-        } catch (Exception $exception) {
-            return $this->respondInternalError();
+            return $this->respondUnauthorized();
         }
-
-        return $this->respondOk($response);
     }
 }

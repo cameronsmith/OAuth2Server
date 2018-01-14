@@ -16,7 +16,7 @@ $app = new App\Application(new Auryn\Injector);
 $app->bindSingleton(Slim\Http\Request::createFromGlobals($_SERVER));
 
 $app->bindSingleton(App\Repositories\RepositoryConnection::getConnectionInstance([
-    'file' => App\Helpers\Path::getStoragePath() . getenv('DB_FILE')
+    'file' => App\Helpers\Path::getStoragePath() . DIRECTORY_SEPARATOR . getenv('DB_FILE')
 ]));
 
 return $app;
