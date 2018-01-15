@@ -1,17 +1,27 @@
 # OAuth2 Server
-OAuth2 Server using the league/oauth2 package. This repo is just to learn the OAuth2 package with it's example files. 
 
-**This application is not intended for production use.**
+A simple OAuth2 Server built without a framework using the league/oauth2 package. This repo is just to learn how to 
+implement the OAuth2 package with it's example files. 
 
 ## Setup Instructions
 
-- Copy the `.env.example` file to `.env` and update the keys you know with your values. 
-Some keys like the `ENCRYPTION_KEY` will be setup by the `app:setup` command later on.
+- Composer install
 
-- To setup the server run:
+- Copy the `.env.example` file to `.env` and update the keys you know with your values. 
+
+- [Setup the server](#setup-the-server)
+
+- [Seed test data](#seeding-test-data)
+
+## Setup the Server
+
+You can setup the server by running this command:
+
 ```
 php ./console.php app:setup
 ```
+
+If you already have an existing installation you can overwrite it by passing the `reinstall` argument.
 
 ## Seeding Test Data
 
@@ -21,7 +31,7 @@ Seed data is available for testing by calling the following command.
 php ./console app:seed
 ```
 
-**You should ONLY call the seeders when not in production** 
+**Note: You should ONLY call the seeders when not in production** 
 
 ## Starting the server
 
@@ -34,4 +44,6 @@ php ./console.php app:serve
 
 For testing and/or a full working example of how everything works you can perform:
 
+```
 ./vendor/bin/phpunit
+```
