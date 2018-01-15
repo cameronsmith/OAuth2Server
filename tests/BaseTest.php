@@ -37,7 +37,7 @@ abstract class BaseTest extends TestCase
      */
     public function post($uri, $body = '', $headers = []) {
         $this->createRequest(self::POST, $body, $uri, $headers);
-        return $this->app->run();
+        return json_decode($this->app->run(), true);
     }
 
     /**
