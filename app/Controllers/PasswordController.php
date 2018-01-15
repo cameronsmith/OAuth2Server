@@ -20,7 +20,7 @@ class PasswordController extends ApiController
             new RefreshTokenRepository()
         );
 
-        $grant->setRefreshTokenTTL(new \DateInterval('P1M'));
+        $grant->setRefreshTokenTTL(new \DateInterval(getenv('REFRESH_TOKEN_EXPIRE')));
 
         $authorizationServer = $this->getAuthorizationServer();
         if (!$authorizationServer) {
@@ -29,7 +29,7 @@ class PasswordController extends ApiController
 
         $authorizationServer->enableGrantType(
             $grant,
-            new \DateInterval('PT1H') // access tokens will expire after 1 hour
+            new \DateInterval(getenv('ACCESS_TOKEN_EXPIRE')) // access tokens will expire after 1 hour
         );
 
         try {

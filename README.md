@@ -29,3 +29,9 @@ php ./console app:seed
 ```
 php ./console.php app:serve
 ```
+
+## Testing
+
+For testing and/or a full working example of how everything works you can perform:
+
+./vendor/bin/phpunit
