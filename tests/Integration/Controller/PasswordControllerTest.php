@@ -6,13 +6,9 @@ use App\Factories\UserFactory;
 
 class PasswordControllerTest extends BaseTest
 {
-    protected $validPost = [
-        'grant_type' => 'password',
-        'client_id' => 1,
-        'client_secret' => 'secret1!',
-        'username' => 'user1',
-        'password' => 'Password1!'
-    ];
+    const AUTH_ENDPOINT = '/password';
+
+    protected $validPost = [];
 
     public function setUp()
     {
@@ -26,11 +22,19 @@ class PasswordControllerTest extends BaseTest
             'username' => 'user1',
             'password' => password_hash('Password1!', PASSWORD_BCRYPT),
         ]);
+
+        $this->validPost = [
+            'grant_type' => 'password',
+            'client_id' => 1,
+            'client_secret' => 'secret1!',
+            'username' => 'user1',
+            'password' => 'Password1!'
+        ];
     }
 
     public function testAUserCanAuthenticate()
     {
-        $response = $this->post('/password', $this->validPost);
+        $response = $this->post(self::AUTH_ENDPOINT, $this->validPost);
 
         $this->assertTrue($response['token_type'] === 'Bearer');
         $this->assertTrue(!empty($response['access_token']));
@@ -42,7 +46,7 @@ class PasswordControllerTest extends BaseTest
         $post = $this->validPost;
         $post['password'] = 'dontknow';
 
-        $response = $this->post('/password', $post);
+        $response = $this->post(self::AUTH_ENDPOINT, $post);
 
         $this->assertTrue(strtoupper($response['error']) === 'UNAUTHORIZED');;
         $this->assertArrayNotHasKey('access_token', $response);
@@ -53,7 +57,7 @@ class PasswordControllerTest extends BaseTest
         $post = $this->validPost;
         $post['client_secret'] = 'dontknow';
 
-        $response = $this->post('/password',$post);
+        $response = $this->post(self::AUTH_ENDPOINT, $post);
 
         $this->assertTrue(strtoupper($response['error']) === 'UNAUTHORIZED');;
         $this->assertArrayNotHasKey('access_token', $response);

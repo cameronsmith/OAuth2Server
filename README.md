@@ -35,7 +35,7 @@ php ./console app:seed
 
 ## Starting the server
 
-- To start the server on port 8080 run:
+To start the server on port 8080 run:
 ```
 php ./console.php app:serve
 ```
@@ -47,3 +47,5 @@ For testing and/or a full working example of how everything works you can perfor
 ```
 ./vendor/bin/phpunit
 ```
+
+You can also import the postman collection within the `docs` folder to find real examples.
