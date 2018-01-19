@@ -21,9 +21,29 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"grant_type\": \"password\",\n\t\"client_id\": 2,\n\t\"client_secret\": \"secret1!\",\n\t\"username\": \"user1\",\n\t\"password\": \"Password1!\"\n}"
+					"raw": "{\n\t\"grant_type\": \"password\",\n\t\"client_id\": 1,\n\t\"client_secret\": \"secret1!\",\n\t\"username\": \"user1\",\n\t\"password\": \"Password1!\"\n}"
 				},
 				"description": "Password Grant"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/refresh",
+			"request": {
+				"url": "localhost:8080/refresh",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"grant_type\": \"refresh_token\",\n\t\"client_id\": 1,\n\t\"client_secret\": \"secret1!\",\n\t\"refresh_token\": \"def50200ea413eb4243b8a18d06ac5f977822db08446b3f6a4856233a0dfe8d82716a85a58b5f545aeb2f43367cd07d0cac9ded455b994f7f7e7d2fc36a3ca3bd79522de6498c84212f8d22b484a27d403b23ebedb6af8f57e246faa8a1ffdf03d255d0984bcc46c63af2914e6a0c25148d16b5380a9edf7cca87c0ad12c2551d0d79fdf1673c0d9212659db81b94a23e1d0fe423fb9da149769ffd2c12e5e8d66d9c07912256b57819f96a097aa470570547bf5924a68ce5de39b80626d922824aadc14c2d72a0cc6561846c483c89d61b29d48064a3cff68181f098bab2f66116cabaf3f724c5997ddbed1d5d117f670b2eb59038885330f9a4de49aed707078cbe5414eb869b783850f541fdb232ae5c8274fe05e338358927ff9e36e6807dc11f994c2a4514ce3de3acfb1ba875b7469f558801682700a578da9c679c11822548784b095f4dd9adb7c10b612c95c305a9b2e999ce15e7357fe3cf5a2e28c99e6a5b4868a\"\n}"
+				},
+				"description": "Request a new token from a request token"
 			},
 			"response": []
 		}

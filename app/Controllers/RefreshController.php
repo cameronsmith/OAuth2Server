@@ -2,21 +2,21 @@
 
 use App\Repositories\UserRepository;
 use App\Repositories\RefreshTokenRepository;
-use League\OAuth2\Server\Grant\PasswordGrant;
+use League\OAuth2\Server\Grant\RefreshTokenGrant;
 use League\OAuth2\Server\Exception\OAuthServerException;
 use Exception;
 use App\Helpers\HttpCodes;
 
-class PasswordController extends ApiController
+class RefreshController extends ApiController
 {
+
     /**
-     * Authorize a user + client with a password grant .
+     * Issue a new auth response with refresh if the client + refresh token is valid.
      *
      * @return \Psr\Http\Message\StreamInterface|string
      */
     public function authorize() {
-        $grant = new PasswordGrant(
-            new UserRepository($this->repoConnection),
+        $grant = new RefreshTokenGrant(
             new RefreshTokenRepository($this->repoConnection)
         );
 
