@@ -50,7 +50,7 @@ class RefreshTokenRepository implements RefreshTokenRepositoryInterface
      */
     public function revokeRefreshToken($tokenId)
     {
-        $sql = 'UPDATE refresh_tokens SET revoked=1 WHERE refresh_token=:token_id LIMIT 1';
+        $sql = 'UPDATE refresh_tokens SET revoked=1 WHERE refresh_token=:token_id';
         $statement = $this->repoConnection->prepare($sql);
         $statement->bindParam('token_id', $tokenId);
         $statement->execute();

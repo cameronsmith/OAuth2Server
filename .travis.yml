@@ -1,0 +1,17 @@
+dist: trusty
+
+language: php
+
+php:
+  - 7.0
+
+install:
+   - cp .env.example .env
+   - travis_retry composer install --no-interaction --prefer-dist --no-suggest
+   - php console.php app:setup
+
+before_script:
+   - composer self-update
+
+script:
+   - php vendor/bin/phpunit
