@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/uk-casmith/OAuth2Server.svg?branch=add-travis-config)](https://travis-ci.org/uk-casmith/OAuth2Server)
+
 # OAuth2 Server
 
 A simple OAuth2 Server built without a framework using the league/oauth2 package. This repo is just to learn how to 
