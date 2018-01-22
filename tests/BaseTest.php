@@ -12,6 +12,7 @@ abstract class BaseTest extends TestCase
     use CreateApplication;
 
     const POST = 'POST';
+    const GET = 'GET';
 
     protected $app;
     protected $repoConnection;
@@ -31,14 +32,49 @@ abstract class BaseTest extends TestCase
      * Make a post request to the application.
      *
      * @param $uri
-     * @param string $body
+     * @param array $body
      * @param array $headers
      * @return mixed
      */
-    public function post($uri, $body = '', $headers = []) {
+    public function post($uri, $body = [], $headers = []) {
         $this->createRequest(self::POST, $body, $uri, $headers);
         return json_decode($this->app->run(), true);
     }
+
+    /**
+     * Make a get request to the application.
+     *
+     * @param $uri
+     * @param $body
+     * @param array $headers
+     * @return mixed
+     */
+    public function get($uri, $body, $headers = []) {
+
+        $request = $this->arrayToUrlRequest($body);
+        $uri .= $request;
+        $this->createRequest(self::GET, [], $uri, $headers);
+        $response = $this->app->run();
+        $jsonResponse = json_decode($response, true);
+
+        return (json_last_error() == JSON_ERROR_NONE ? $jsonResponse : $response);
+    }
+
+    /**
+     * Phrase an array to a url request.
+     *
+     * @param array $array
+     * @return string
+     */
+    protected function arrayToUrlRequest(array $array) {
+        $requestVariables = [];
+        foreach($array as $key => $value) {
+            $requestVariables[] = "$key=$value";
+        }
+
+        return '?' . implode('&', $requestVariables);
+    }
+
 
     /**
      * Create a request.
@@ -50,7 +86,7 @@ abstract class BaseTest extends TestCase
      * @param $uri
      * @param array $headers
      */
-    protected function createRequest($method, array $body, $uri, $headers = []) {
+    protected function createRequest($method, $body, $uri, $headers = []) {
         $request = [
             'REQUEST_METHOD' => $method,
             'REQUEST_URI' => $uri,

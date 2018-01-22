@@ -77,6 +77,9 @@ class SetupServerCommand extends Command
         $this->runMigrations();
         $output->writeln('<info>OK</info>');
 
+        $output->writeln('');
+        $output->writeln('<info>Installation complete. Do not forget to run app:seed if you are in development.</info>');
+
         return true;
     }
 
