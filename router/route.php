@@ -11,6 +11,9 @@ $router = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) {
     /* Implicit Grant */
     $r->addRoute('GET', '/implicit', ['App\Controllers\ImplicitController', 'authorize']);
 
+    /* Client  Grant */
+    $r->addRoute('POST', '/client', ['App\Controllers\ClientController', 'authorize']);
+
     /* Refresh Grant */
     $r->addRoute('POST', '/refresh', ['App\Controllers\RefreshController', 'authorize']);
 });
