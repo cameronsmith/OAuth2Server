@@ -23,7 +23,7 @@
 					"mode": "raw",
 					"raw": "{\n\t\"grant_type\": \"password\",\n\t\"client_id\": 1,\n\t\"client_secret\": \"secret1!\",\n\t\"username\": \"user1\",\n\t\"password\": \"Password1!\"\n}"
 				},
-				"description": "Password Grant"
+				"description": "Password Grant Endpoint."
 			},
 			"response": []
 		},
@@ -63,7 +63,7 @@
 					"mode": "raw",
 					"raw": "{\n\t\"grant_type\": \"password\",\n\t\"client_id\": 1,\n\t\"client_secret\": \"secret1!\",\n\t\"username\": \"user1\",\n\t\"password\": \"Password1!\"\n}"
 				},
-				"description": "Auth-Code Request"
+				"description": "Auth-Code Request Get. If approved will return a redirect."
 			},
 			"response": []
 		},
@@ -103,15 +103,15 @@
 					"mode": "raw",
 					"raw": "{\n\t\"grant_type\": \"password\",\n\t\"client_id\": 1,\n\t\"client_secret\": \"secret1!\",\n\t\"username\": \"user1\",\n\t\"password\": \"Password1!\"\n}"
 				},
-				"description": "Auth-Code Request"
+				"description": "Implicit Request Endpoint."
 			},
 			"response": []
 		},
 		{
-			"name": "localhost:8080/implicit copy",
+			"name": "localhost:8080/client",
 			"request": {
-				"url": "localhost:8080/implicit?response_type=token&client_id=1&redirect_uri=/&scope=email",
-				"method": "GET",
+				"url": "localhost:8080/client",
+				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
@@ -121,9 +121,9 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"grant_type\": \"password\",\n\t\"client_id\": 1,\n\t\"client_secret\": \"secret1!\",\n\t\"username\": \"user1\",\n\t\"password\": \"Password1!\"\n}"
+					"raw": "{\n\t\"grant_type\": \"client_credentials\",\n\t\"client_id\": 1,\n\t\"client_secret\": \"secret1!\",\n\t\"scope\": \"email\"\n}"
 				},
-				"description": "Auth-Code Request"
+				"description": "Client Credentials Grant"
 			},
 			"response": []
 		}
