@@ -20,7 +20,7 @@ implement the OAuth2 package with it's example files.
 You can setup the server by running this command:
 
 ```
-php ./console.php app:setup
+php ./console app:setup
 ```
 
 If you already have an existing installation you can overwrite it by passing the `reinstall` argument.
@@ -39,7 +39,7 @@ php ./console app:seed
 
 To start the server on port 8080 run:
 ```
-php ./console.php app:serve
+php ./console app:serve
 ```
 
 ## Testing

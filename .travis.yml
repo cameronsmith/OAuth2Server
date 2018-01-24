@@ -8,7 +8,7 @@ php:
 install:
    - cp .env.example .env
    - travis_retry composer install --no-interaction --prefer-dist --no-suggest
-   - php console.php app:setup
+   - php console app:setup
 
 before_script:
    - composer self-update
