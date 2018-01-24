@@ -39,7 +39,7 @@ class ApiController
 
         $authorizationServer = new AuthorizationServer(
             new ClientRepository($this->repoConnection),
-            new AccessTokenRepository(),
+            new AccessTokenRepository($this->repoConnection),
             new ScopeRepository(),
             'file://' . Path::getStoragePath() . '/private.key',
             getenv('ENCRYPTION_KEY')

@@ -32,13 +32,13 @@ class RefreshController extends ApiController
             new \DateInterval(getenv('ACCESS_TOKEN_EXPIRE')) // access tokens will expire after 1 hour
         );
 
-        try {
+        //try {
             return $this->respondOk($authorizationServer->respondToAccessTokenRequest(
                 $this->request,
                 $this->response
             ));
-        } catch (OAuthServerException $exception) {
-            return $this->respondUnauthorized();
-        }
+        //} catch (OAuthServerException $exception) {
+            //return $this->respondUnauthorized();
+        //}
     }
 }
