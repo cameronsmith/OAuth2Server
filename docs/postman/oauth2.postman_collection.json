@@ -41,9 +41,89 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"grant_type\": \"refresh_token\",\n\t\"client_id\": 1,\n\t\"client_secret\": \"secret1!\",\n\t\"refresh_token\": \"def50200ea413eb4243b8a18d06ac5f977822db08446b3f6a4856233a0dfe8d82716a85a58b5f545aeb2f43367cd07d0cac9ded455b994f7f7e7d2fc36a3ca3bd79522de6498c84212f8d22b484a27d403b23ebedb6af8f57e246faa8a1ffdf03d255d0984bcc46c63af2914e6a0c25148d16b5380a9edf7cca87c0ad12c2551d0d79fdf1673c0d9212659db81b94a23e1d0fe423fb9da149769ffd2c12e5e8d66d9c07912256b57819f96a097aa470570547bf5924a68ce5de39b80626d922824aadc14c2d72a0cc6561846c483c89d61b29d48064a3cff68181f098bab2f66116cabaf3f724c5997ddbed1d5d117f670b2eb59038885330f9a4de49aed707078cbe5414eb869b783850f541fdb232ae5c8274fe05e338358927ff9e36e6807dc11f994c2a4514ce3de3acfb1ba875b7469f558801682700a578da9c679c11822548784b095f4dd9adb7c10b612c95c305a9b2e999ce15e7357fe3cf5a2e28c99e6a5b4868a\"\n}"
+					"raw": "{\n\t\"grant_type\": \"refresh_token\",\n\t\"client_id\": \"1\",\n\t\"client_secret\": \"secret1!\",\n\t\"refresh_token\": \"def502007b240831105ecde56a7f1de393abaa819d7dd69a684df7e74d4a119430da84f021e3b57d84fa6423fb1f14b4117155821a82925426daaaec1affe6b8e1cf0c72e9d579ab92c09155882c79c266cfde5ae370f86bb1f3ca1fa075e666bab1e24fd98e5b1bd014f5210e6e8e3fba4f1759d780b255e77ff3e562bb56c30e7985eac5c6a5113ce21fe4e30cc1dc830c26dd04a014c55166a5a5cf00ed3b05106ab5eba9cc82390bb4a81d1bc5dc4b4406f9ae05ddd87817eb2c9e668a829d4586d7c6b3df1318b44379cb3bab48a6f2d04bf582801cb4a38fc607ee6eaf1378223f690ef567a1c52d91335736df3803fc98a963de1f4ba34ee695879a9fa74ad8a8390c6202dbc198a8778d4f3a96f10b8cebda73894f60f8e52ad004106d2e0e41bf3692d9e7781731a920eb37b564e523ab962838c83da53e015704700e32fda2f26fb7cb1275860a847f541f8e45874244a7c4192ec3297c9d18c76783f2f9c51987\"\n}"
 				},
 				"description": "Request a new token from a request token"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/auth-code",
+			"request": {
+				"url": "localhost:8080/auth-code?response_type=code&client_id=1&redirect_uri=/&scope=email",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"grant_type\": \"password\",\n\t\"client_id\": 1,\n\t\"client_secret\": \"secret1!\",\n\t\"username\": \"user1\",\n\t\"password\": \"Password1!\"\n}"
+				},
+				"description": "Auth-Code Request"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/auth-code",
+			"request": {
+				"url": "localhost:8080/auth-code",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"grant_type\": \"authorization_code\",\n\t\"client_id\": \"1\",\n\t\"client_secret\": \"secret1!\",\n\t\"redirect_uri\": \"/\",\n\t\"code\": \"\"\n}"
+				},
+				"description": "Auth-Code Request"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/implicit",
+			"request": {
+				"url": "localhost:8080/implicit?response_type=token&client_id=1&redirect_uri=/&scope=email",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"grant_type\": \"password\",\n\t\"client_id\": 1,\n\t\"client_secret\": \"secret1!\",\n\t\"username\": \"user1\",\n\t\"password\": \"Password1!\"\n}"
+				},
+				"description": "Auth-Code Request"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/implicit copy",
+			"request": {
+				"url": "localhost:8080/implicit?response_type=token&client_id=1&redirect_uri=/&scope=email",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"grant_type\": \"password\",\n\t\"client_id\": 1,\n\t\"client_secret\": \"secret1!\",\n\t\"username\": \"user1\",\n\t\"password\": \"Password1!\"\n}"
+				},
+				"description": "Auth-Code Request"
 			},
 			"response": []
 		}
