@@ -55,6 +55,29 @@ class RefreshControllerTest extends BaseTest
         $this->assertTrue(!empty($response['refresh_token']));
     }
 
+    public function testAccessTokenIsRevokedAfterRefresh()
+    {
+        $response = $this->post(self::AUTH_ENDPOINT, $this->authPost);
+        $this->assertTrue(!empty($response['refresh_token']));
+
+        $sql = 'SELECT * FROM access_tokens';
+        $accessToken = $this->repoConnection->query($sql)->fetchAll()[0];
+
+        $this->refreshPost['refresh_token'] = $response['refresh_token'];
+
+        $this->post(self::REFRESH_ENDPOINT, $this->refreshPost);
+
+
+        $sql = 'SELECT * FROM access_tokens WHERE token_id=:token_id';
+        $statement = $this->repoConnection->prepare($sql);
+        $statement->bindValue('token_id', $accessToken['token_id']);
+        $statement->execute();
+
+        $updatedAccessToken = $statement->fetchAll()[0];
+
+        $this->assertTrue($updatedAccessToken['revoked'] == 1);
+    }
+
     public function testAUserWithInvalidClientCannotAuthenticate()
     {
         $response = $this->post(self::AUTH_ENDPOINT, $this->authPost);
@@ -103,4 +126,5 @@ class RefreshControllerTest extends BaseTest
         $this->assertTrue(strtoupper($response['error']) === 'UNAUTHORIZED');
         $this->assertTrue(strtoupper($response['http_code']) == HttpCodes::HTTP_UNAUTHORIZED);
     }
+
 }

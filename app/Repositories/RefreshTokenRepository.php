@@ -77,7 +77,6 @@ class RefreshTokenRepository implements RefreshTokenRepositoryInterface
 
         $currentDate = new \DateTime();
         $expiredDate = new \DateTime($row['expires']);
-        $expiredDate->add(new \DateInterval(getenv('REFRESH_TOKEN_EXPIRE')));
 
         if ($currentDate > $expiredDate) {
             return true;

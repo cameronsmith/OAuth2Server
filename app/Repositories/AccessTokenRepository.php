@@ -92,7 +92,12 @@ class AccessTokenRepository implements AccessTokenRepositoryInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Get new token.
+     *
+     * @param ClientEntityInterface $clientEntity
+     * @param array $scopes
+     * @param null $userIdentifier
+     * @return AccessTokenEntity
      */
     public function getNewToken(ClientEntityInterface $clientEntity, array $scopes, $userIdentifier = null)
     {
