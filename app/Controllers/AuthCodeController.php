@@ -9,10 +9,17 @@ use App\Helpers\HttpCodes;
 use League\OAuth2\Server\Grant\AuthCodeGrant;
 use App\Repositories\AuthCodeRepository;
 use App\Entities\UserEntity;
+use App\Exceptions\AuthCodeException;
 
 
 class AuthCodeController extends ApiController
 {
+    /**
+     * Authorize an auth code.
+     *
+     * @return \Psr\Http\Message\ResponseInterface|string
+     * @throws AuthCodeException
+     */
     public function authorize()
     {
         $authorizationServer = $this->getAuthorizationGrantServer();
@@ -27,9 +34,17 @@ class AuthCodeController extends ApiController
             return $authorizationServer->completeAuthorizationRequest($authRequest, $this->response);
         } catch (OAuthServerException $exception) {
             return $this->respondUnauthorized();
+        } catch (Exception $exception) {
+            throw new AuthCodeException($exception->getMessage());
         }
     }
 
+    /**
+     * Provide a token for an auth code.
+     *
+     * @return \Psr\Http\Message\StreamInterface|string
+     * @throws AuthCodeException
+     */
     public function provideToken()
     {
         $authorizationServer = $this->getAuthorizationGrantServer();
@@ -41,6 +56,8 @@ class AuthCodeController extends ApiController
             ));
         } catch (OAuthServerException $exception) {
             return $this->respondUnauthorized();
+        } catch (Exception $exception) {
+            throw new AuthCodeException($exception->getMessage());
         }
     }
 
