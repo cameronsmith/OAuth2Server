@@ -6,13 +6,15 @@ use League\OAuth2\Server\Grant\PasswordGrant;
 use League\OAuth2\Server\Exception\OAuthServerException;
 use Exception;
 use App\Helpers\HttpCodes;
+use App\Exceptions\PasswordException;
 
 class PasswordController extends ApiController
 {
     /**
-     * Authorize a user + client with a password grant .
+     * Authorize a user + client with a password grant.
      *
      * @return \Psr\Http\Message\StreamInterface|string
+     * @throws PasswordException
      */
     public function authorize() {
         $grant = new PasswordGrant(
@@ -39,6 +41,8 @@ class PasswordController extends ApiController
             ));
         } catch (OAuthServerException $exception) {
             return $this->respondUnauthorized();
+        } catch (Exception $exception) {
+            throw new PasswordException($exception->getMessage());
         }
     }
 }

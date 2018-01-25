@@ -1,5 +1,6 @@
 <?php namespace App\Controllers;
 
+use App\Exceptions\RefreshException;
 use App\Repositories\UserRepository;
 use App\Repositories\RefreshTokenRepository;
 use League\OAuth2\Server\Grant\RefreshTokenGrant;
@@ -14,6 +15,7 @@ class RefreshController extends ApiController
      * Issue a new auth response with refresh if the client + refresh token is valid.
      *
      * @return \Psr\Http\Message\StreamInterface|string
+     * @throws RefreshException
      */
     public function authorize() {
         $grant = new RefreshTokenGrant(
@@ -39,6 +41,8 @@ class RefreshController extends ApiController
             ));
         } catch (OAuthServerException $exception) {
             return $this->respondUnauthorized();
+        } catch (Exception $exception) {
+            throw new RefreshException($exception->getMessage());
         }
     }
 }
