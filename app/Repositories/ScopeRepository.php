@@ -6,29 +6,52 @@ use App\Entities\ScopeEntity;
 
 class ScopeRepository implements ScopeRepositoryInterface
 {
+    protected $repoConnection;
+
     /**
-     * {@inheritdoc}
+     * RefreshTokenRepository constructor.
+     *
+     * @param \App\Repositories\RepositoryConnection $repoConnection
+     */
+    public function __construct(RepositoryConnection $repoConnection)
+    {
+        $this->repoConnection = $repoConnection;
+    }
+
+    /**
+     * Get scope requested.
+     *
+     * @param string $scopeIdentifier
+     * @return ScopeEntity|bool
      */
     public function getScopeEntityByIdentifier($scopeIdentifier)
     {
-        $scopes = [
-            'basic' => [
-                'description' => 'Basic details about you',
-            ],
-            'email' => [
-                'description' => 'Your email address',
-            ],
-        ];
-        if (array_key_exists($scopeIdentifier, $scopes) === false) {
-            return;
+        $sql = 'SELECT * FROM scopes WHERE name=:scope';
+        $statement = $this->repoConnection->prepare($sql);
+        $statement->bindValue('scope', $scopeIdentifier);
+        $statement->execute();
+
+        $scopeRecord = $statement->fetch();
+
+        if (!$scopeRecord) {
+            return false;
         }
+
         $scope = new ScopeEntity();
         $scope->setIdentifier($scopeIdentifier);
         return $scope;
     }
 
     /**
-     * {@inheritdoc}
+     * Modify scopes on output if needed.
+     *
+     * If no scope is provided the `general` scope is added.
+     *
+     * @param array $scopes
+     * @param string $grantType
+     * @param ClientEntityInterface $clientEntity
+     * @param null $userIdentifier
+     * @return array
      */
     public function finalizeScopes(
         array $scopes,
@@ -36,10 +59,9 @@ class ScopeRepository implements ScopeRepositoryInterface
         ClientEntityInterface $clientEntity,
         $userIdentifier = null
     ) {
-        // Example of programatically modifying the final scope of the access token
-        if ((int)$userIdentifier === 1) {
+        if (empty($scopes)) {
             $scope = new ScopeEntity();
-            $scope->setIdentifier('email');
+            $scope->setIdentifier('general');
             $scopes[] = $scope;
         }
         return $scopes;
