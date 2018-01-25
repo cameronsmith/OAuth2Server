@@ -4,6 +4,7 @@ use Tests\BaseTest;
 use App\Factories\ClientFactory;
 use App\Factories\UserFactory;
 use App\Helpers\HttpCodes;
+use App\Factories\ScopeFactory;
 
 class RefreshControllerTest extends BaseTest
 {
@@ -16,6 +17,8 @@ class RefreshControllerTest extends BaseTest
     public function setUp()
     {
         parent::setUp();
+
+        $this->factory(ScopeFactory::class);
 
         $this->factory(ClientFactory::class, [
             'secret' => password_hash('secret1!', PASSWORD_BCRYPT),
