@@ -41,7 +41,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"grant_type\": \"refresh_token\",\n\t\"client_id\": \"1\",\n\t\"client_secret\": \"secret1!\",\n\t\"refresh_token\": \"def502007b240831105ecde56a7f1de393abaa819d7dd69a684df7e74d4a119430da84f021e3b57d84fa6423fb1f14b4117155821a82925426daaaec1affe6b8e1cf0c72e9d579ab92c09155882c79c266cfde5ae370f86bb1f3ca1fa075e666bab1e24fd98e5b1bd014f5210e6e8e3fba4f1759d780b255e77ff3e562bb56c30e7985eac5c6a5113ce21fe4e30cc1dc830c26dd04a014c55166a5a5cf00ed3b05106ab5eba9cc82390bb4a81d1bc5dc4b4406f9ae05ddd87817eb2c9e668a829d4586d7c6b3df1318b44379cb3bab48a6f2d04bf582801cb4a38fc607ee6eaf1378223f690ef567a1c52d91335736df3803fc98a963de1f4ba34ee695879a9fa74ad8a8390c6202dbc198a8778d4f3a96f10b8cebda73894f60f8e52ad004106d2e0e41bf3692d9e7781731a920eb37b564e523ab962838c83da53e015704700e32fda2f26fb7cb1275860a847f541f8e45874244a7c4192ec3297c9d18c76783f2f9c51987\"\n}"
+					"raw": "{\n\t\"grant_type\": \"refresh_token\",\n\t\"client_id\": 1,\n\t\"client_secret\": \"secret1!\",\n\t\"refresh_token\": \"def5020020966f80e9a5286338c63a3fcd56cd3aed7677d07ed66fd296890761796e97efae80b78837252a13e643d83ca572e3803b7adf26e2c7168e42d796c5244808f118a28ad42c5c9f36a8a29f9553955fe71ffe633005e47e488f303578e372fc04d96b8ab10cddeb292db0583c3bfdd388867a878d05c0b71a4c4f9685e5a28cb50afd635d1cb382814ed9f0b3a554592e37c54085fe644c206813cae6ebe7bdc11fe5150ede6e1c57d36ac9e00ea78b3f7bcf5167dca4275c35114ff3ab24e1f9f0f476e35757d990247af000d45e1f7a5941ae8676deaeea2924d6bdada21e65fb167c5dc193c2956f7415dbcf52a0c975937e14acaa83ef9b82e1398555cc6bc1c30f427873b8ccdc7a0e742138b9412635f3e6f40a59da722b5b896520b82e8171af38c391996514a67f4825c65a447be1adbe2cb7784b27af8c79ce36105c713f3df7fe863ff762d3c88084582c49dca9c77e1a221a81dfb6cf4fe82bfde22ccb\"\n}"
 				},
 				"description": "Request a new token from a request token"
 			},
@@ -81,7 +81,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"grant_type\": \"authorization_code\",\n\t\"client_id\": \"1\",\n\t\"client_secret\": \"secret1!\",\n\t\"redirect_uri\": \"/\",\n\t\"code\": \"\"\n}"
+					"raw": "{\n\t\"grant_type\": \"authorization_code\",\n\t\"client_id\": \"1\",\n\t\"client_secret\": \"secret1!\",\n\t\"redirect_uri\": \"/\",\n\t\"code\": \"def50200f23449d9387f9c59e92af8b5faec81adc66b6b372c804d0b5ca0092bc3ae58311ba441d35cfb63aad0224627f1366eb47cd8047cbbd7c7965726c8c1daa06a936edf1842f5617f7d71fc507e653dc5c3203868dcae300160c4f2358de80b6861391e2e0cf510a768c0cbc2dcdf5ac9b9c4ec5dddc927180ae8feaffde51b6c7a60d4d0e49695105c60a98a4994cf5a1a81bf0b5e39f46729e0851331e28b08c91152ebbbc51902997a3b8bdbd263a946361bd9fde6be5da63a71fea1ed8bafefdbe0eadcdca15819b345b9243246365dec648d6f6a9a824b6e1a812de9170481637b901925becd193b6caf50ae165f7559c07393986b94f5930b2485189f5f552cef1b0e061dc13fb71f40d46f4192c76b1ce77a0235582f7082346d7cffd5c5c18001436ab2ca6cc7ace0320e7555bed1ef60e01f5a6e3e34a06375c5cf075a358d3f39\"\n}"
 				},
 				"description": "Auth-Code Request"
 			},
