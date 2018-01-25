@@ -111,8 +111,8 @@ server does not participate in the interaction.
 The user logs into the provider and is presented with the consent dialog. Once confirmed the user is redirected with the 
 access token.
 
-**Note:** The consent dialog is not provided within this package. You'll have to create one and protect the implicit 
-grant route to only authenticated users.
+**Note:** The authentication/consent dialog is not provided within this package. You'll have to create one and protect 
+the implicit grant route to only authenticated users.
 
 ### Auth Code Grant
 
@@ -125,13 +125,13 @@ localhost:8080/auth-code?response_type=code&client_id=1&redirect_uri=/&scope=ema
 
 The user will then be asked to login to the authorization server and approve the client.
 
-**Note:** The authentication dialog is not provided within this package. You'll have to create one and protect the 
-redirect route to only authenticated users.
+**Note:** The authentication/consent dialog is not provided within this package. You'll have to create one and protect 
+the redirect route to only authenticated users.
 
 #### Step 2.
 If approved the user will be redirected from the authorization server to the client with the `code`.
  
-The backend server will then send a POST request with the code and the client credentials to request the token.
+The backend server will then send a POST request with the code and the client credentials to request the access token.
 
 ```
 {
